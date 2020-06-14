@@ -144,16 +144,22 @@ export default {
     },
     selectDate(date) {
       if (date) {
-        this.selectedDates.push({
-          year: this.year,
-          month: this.month,
-          date
-        });
+        let selectDateIndex = this.selectedDates.findIndex(selectedDate => selectedDate.date === date);
+        if (selectDateIndex < 0) {
+          this.selectedDates.push({
+            year: this.year,
+            month: this.month,
+            date
+          });
+        } else {
+          this.selectedDates.splice(selectDateIndex, 1);
+        }
+
         const customSelectDatesEvent = new CustomEvent('customSelectDates', {
           bubbles: true,
           composed: true, 
           detail: {
-            selectedDates: this.selectedDates
+            selectedDates: this.selectedDates //TODO : expected output ['2020-05-18',...] ordered by date
           }});
         this.$el.dispatchEvent(customSelectDatesEvent);
       }
