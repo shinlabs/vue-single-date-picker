@@ -12,7 +12,7 @@
     <CalendarMonth 
       :dates-per-week="datesPerWeek"
       :is-today="isToday"
-      :is-selected="isSelected"
+      :all-selected="allSelected"
       @selectDate="selectDate"
     />
   </div>
@@ -30,12 +30,6 @@ export default {
     CalendarMonthHeader,
     CalendarMonth
   },
-  props: {
-    date: {
-      type: Object,
-      default: () => null
-    }
-  },
   data() {
     return {
       year: 0,
@@ -43,7 +37,7 @@ export default {
       todayDate: 0,
       todayYear: 0,
       todayMonth: 0,
-      selectedDate: null,
+      selectedDates: []
     }
   },
   computed: {
@@ -100,11 +94,12 @@ export default {
     isToday() {
       return (this.isCurrentMonth && this.isCurrentYear) ? this.todayDate : 0;
     },
-    isSelected() {
-      if (this.selectedDate) {
-        return (this.selectedDate.year === this.year) && (this.selectedDate.month === this.month) ? this.selectedDate.date : 0;
+    allSelected() {
+      if (this.selectedDates.length > 0) {
+        let currentDates = this.selectedDates.filter(date => date.year === this.year && date.month === this.month);
+        return currentDates.length > 0 ? currentDates : [];
       }
-      return 0;
+      return [];
     }
   },
   watch: {
@@ -114,12 +109,10 @@ export default {
   },
   created() {
     const date = new Date();
-    if (this.date) {
-      this.setDate(this.date);
-    } else {
-      this.year = date.getFullYear();
-      this.month = date.getMonth();
-    }
+
+    this.year = date.getFullYear();
+    this.month = date.getMonth();
+
     this.todayDate = date.getDate();
     this.todayYear = date.getFullYear();
     this.todayMonth = date.getMonth();
@@ -151,26 +144,19 @@ export default {
     },
     selectDate(date) {
       if (date) {
-        this.selectedDate = {
+        this.selectedDates.push({
           year: this.year,
           month: this.month,
           date
-        }
-        // this.$emit('selectDate', this.selectedDate);
-
-        const customSelectDateEvent = new CustomEvent('customSelectDate', {
+        });
+        const customSelectDatesEvent = new CustomEvent('customSelectDates', {
           bubbles: true,
           composed: true, 
           detail: {
-            selectedDate: this.selectedDate
+            selectedDates: this.selectedDates
           }});
-        this.$el.dispatchEvent(customSelectDateEvent);
+        this.$el.dispatchEvent(customSelectDatesEvent);
       }
-    },
-    setDate(date) {
-      this.year = date.year;
-      this.month = date.month;
-      this.selectedDate = this.date;
     }
   }
 }
