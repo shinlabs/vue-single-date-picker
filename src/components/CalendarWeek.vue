@@ -5,7 +5,7 @@
       :key="index"
       :date="date"
       :is-today="isToday === date"
-      :is-selected="isSelected === date"
+      :is-selected="selectedDatesIncludes(date)"
       @selectDate="selectDate"
     />
   </tr>
@@ -26,14 +26,17 @@ export default {
       type: Number,
       default: 0
     },
-    isSelected: {
-      type: Number,
-      default: 0
+    allSelected: {
+      type: Array,
+      default: () => []
     }
   },
   methods: {
     selectDate(date) {
       this.$emit('selectDate', date);
+    },
+    selectedDatesIncludes(val) {
+      return this.allSelected.map(date => date.date).includes(val);
     }
   }
 }

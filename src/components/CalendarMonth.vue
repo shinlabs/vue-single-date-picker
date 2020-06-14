@@ -13,7 +13,7 @@
         :key="index"
         :week="week"
         :is-today="isToday"
-        :is-selected="isSelected"
+        :all-selected="allSelected"
         @selectDate="selectDate"
       />
     </tbody>
@@ -38,14 +38,14 @@ export default {
       type: Number,
       default: 0
     },
-    isSelected: {
-      type: Number,
-      default: 0,
+    allSelected: {
+      type: Array,
+      default: () => [],
     }
   },
   data() {
     return {
-      daysInWeek: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+      daysInWeek: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
     }
   },
   methods: {

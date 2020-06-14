@@ -48,15 +48,19 @@ export default {
   cursor: default;
   text-align: center;
 
-  &:hover,
-  &.single-date-picker__selected {
+  &:hover {
     border-radius: 50%;
-    border: 2px solid pink;
+    border: 2px solid #f39200;
   }
-
   &.single-date-picker__today {
     border-radius: 50%;
-    background-image: linear-gradient(to bottom right, #f1b4b9, #d2b0c3);
+    border: 2px solid #ed6d7b;
+  }
+
+  &.single-date-picker__selected {
+    border-radius: 50%;
+    background-color: #f39200;
+    color: #fff;
   }
 }
 </style>
