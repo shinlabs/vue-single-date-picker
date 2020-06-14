@@ -144,7 +144,10 @@ export default {
     },
     selectDate(date) {
       if (date) {
-        let selectDateIndex = this.selectedDates.findIndex(selectedDate => selectedDate.date === date);
+        let selectDateIndex = this.selectedDates.findIndex(
+          selectedDate => selectedDate.year === this.year && 
+          selectedDate.month === this.month && 
+          selectedDate.date === date);
         if (selectDateIndex < 0) {
           this.selectedDates.push({
             year: this.year,
