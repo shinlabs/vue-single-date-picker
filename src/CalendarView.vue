@@ -156,7 +156,15 @@ export default {
           month: this.month,
           date
         }
-        this.$emit('selectDate', this.selectedDate);
+        // this.$emit('selectDate', this.selectedDate);
+
+        const customSelectDateEvent = new CustomEvent('customSelectDate', {
+          bubbles: true,
+          composed: true, 
+          detail: {
+            selectedDate: this.selectedDate
+          }});
+        this.$el.dispatchEvent(customSelectDateEvent);
       }
     },
     setDate(date) {

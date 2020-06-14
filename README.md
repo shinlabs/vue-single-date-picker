@@ -2,16 +2,19 @@
 
 This project is a fork from [jiayingy/vue-single-date-picker](https://github.com/jiayingy/vue-single-date-picker) and the goals are :  
 
-* Being able to build a web component of the calendar  
-* Being able to select several dates and/or unselect some dates  
-* Change the colors so that it matches the theme of a personal project  
+* Being able to build a web component of the calendar  [DONE]  
+* Being able to select several dates and/or unselect some dates [WIP]    
+* Change the colors so that it matches the theme of a personal project  [WIP]  
 
 ## How to build a web component  
 
 * At the root of the project, execute the command `npx vue-cli-service-build --target wc --inline-vue --name you-name-it './src/CalendarView.vue'`.  
-* In the generated html file, include both Material Icons and Google fonts  
+* In the html header where you want to include the web component, include vue, the generated js, googleapis for Material Icons and Google fonts  
+  * `<script src="https://unpkg.com/vue"></script>`
+  * `<script src="./esd-calendar.js"></script>`
   * `<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">`  
   * `<link href="https://fonts.googleapis.com/css?family=Lato:100,300,400&display=swap" rel="stylesheet">`  
+* In the html body, include the web component : `<esd-calendar></esd-calendar>`  
 
 # Readme of original project  
 ## Demo
