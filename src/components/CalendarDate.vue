@@ -49,12 +49,12 @@ export default {
   text-align: center;
 
   &:hover,
-  &.single-date-picker__selected {
+  &.single-date-picker__today {
     border-radius: 50%;
     border: 2px solid pink;
   }
 
-  &.single-date-picker__today {
+  &.single-date-picker__selected {
     border-radius: 50%;
     background-image: linear-gradient(to bottom right, #f1b4b9, #d2b0c3);
   }
