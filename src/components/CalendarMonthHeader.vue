@@ -64,12 +64,12 @@ export default {
 <style lang="scss" scoped>
 .single-date-picker__calendar-month-header {
   padding: 15px;
-  background-image: linear-gradient(to right, #e0caca, #d4b8ca, #c7a3b5);
+  background-image: linear-gradient(to right, #b63a48, #ea4c96, #ed6d7b);
   display: flex;
   justify-content: space-between;
   border-radius: 10px 10px 0 0;
   align-items: center;
-  color: #77505e;
+  color: #fff;
 
   .single-date-picker__year {
     font-weight: 900;
