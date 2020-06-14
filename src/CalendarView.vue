@@ -155,11 +155,14 @@ export default {
           this.selectedDates.splice(selectDateIndex, 1);
         }
 
+        let selectedDatesForEvent = this.selectedDates.map(date => date.year + '-' + date.month + '-' + date.date);
+        selectedDatesForEvent.sort((a, b) => new Date(a) - new Date(b));
+        
         const customSelectDatesEvent = new CustomEvent('customSelectDates', {
           bubbles: true,
           composed: true, 
           detail: {
-            selectedDates: this.selectedDates //TODO : expected output ['2020-05-18',...] ordered by date
+            selectedDates: selectedDatesForEvent
           }});
         this.$el.dispatchEvent(customSelectDatesEvent);
       }
