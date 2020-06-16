@@ -158,7 +158,7 @@ export default {
           this.selectedDates.splice(selectDateIndex, 1);
         }
 
-        let selectedDatesForEvent = this.selectedDates.map(date => date.year + '-' + date.month + '-' + date.date);
+        let selectedDatesForEvent = this.selectedDates.map(date => date.year + '-' + eval(date.month+1) + '-' + date.date);
         selectedDatesForEvent.sort((a, b) => new Date(a) - new Date(b));
         
         const customSelectDatesEvent = new CustomEvent('customSelectDates', {
