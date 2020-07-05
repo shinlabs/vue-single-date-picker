@@ -30,6 +30,12 @@ export default {
     CalendarMonthHeader,
     CalendarMonth
   },
+  props: {
+    inputDates: {
+      type: String,
+      default: () => ''
+    }
+  },
   data() {
     return {
       year: 0,
@@ -37,7 +43,10 @@ export default {
       todayDate: 0,
       todayYear: 0,
       todayMonth: 0,
-      selectedDates: []
+      selectedDates: this.inputDates.split(',').map(rawDate => { 
+        let date = new Date(rawDate);
+        return {year: date.getFullYear(), month: date.getMonth(), date: date.getDate()}
+        })
     }
   },
   computed: {
