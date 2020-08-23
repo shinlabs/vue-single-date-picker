@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 <template>
   <div
     id="single-date-picker"
@@ -43,9 +42,12 @@ export default {
       todayDate: 0,
       todayYear: 0,
       todayMonth: 0,
-      selectedDates: this.inputDates.split(',').map(rawDate => { 
-        let date = new Date(rawDate);
-        return {year: date.getFullYear(), month: date.getMonth(), date: date.getDate()}
+      selectedDates: this.inputDates
+        .split(',')
+        .filter(date => date !== '')
+        .map(rawDate => { 
+          let date = new Date(rawDate);
+          return {year: date.getFullYear(), month: date.getMonth(), date: date.getDate()}
         })
     }
   },
@@ -167,16 +169,25 @@ export default {
           this.selectedDates.splice(selectDateIndex, 1);
         }
 
-        let selectedDatesForEvent = this.selectedDates.map(date => date.year + '-' + eval(date.month+1) + '-' + date.date);
-        selectedDatesForEvent.sort((a, b) => new Date(a) - new Date(b));
+        let formattedSelectedDates = this.selectedDates
+          .map(date => {
+            const rawMonth = eval(date.month + 1);
+            const twoDigitsMonth = rawMonth < 10 ? '0' + rawMonth : rawMonth;
+
+            const rawDay = date.date;
+            const twoDigitsDay = rawDay < 10 ? '0' + rawDay : rawDay;
+
+            return date.year + '-' + twoDigitsMonth + '-' + twoDigitsDay
+          })
+          .sort((a, b) => new Date(a) - new Date(b));
         
-        const customSelectDatesEvent = new CustomEvent('customSelectDates', {
+        const customSelectedDatesEvent = new CustomEvent('customSelectDates', {
           bubbles: true,
           composed: true, 
           detail: {
-            selectedDates: selectedDatesForEvent
+            selectedDates: formattedSelectedDates
           }});
-        this.$el.dispatchEvent(customSelectDatesEvent);
+        this.$el.dispatchEvent(customSelectedDatesEvent);
       }
     }
   }
